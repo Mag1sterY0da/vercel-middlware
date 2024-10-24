@@ -12,12 +12,12 @@ export const createRedirectionIoMiddleware = config => {
   return async (request, context) => {
     // Avoid infinite loop
     console.log(request, context);
-    if (
-      request.headers.get('x-redirectionio-middleware') === 'true' ||
-      request.headers.get('User-Agent') === 'Vercel Edge Functions'
-    ) {
-      return next();
-    }
+    // if (
+    //   request.headers.get('x-redirectionio-middleware') === 'true' ||
+    //   request.headers.get('User-Agent') === 'Vercel Edge Functions'
+    // ) {
+    //   return next();
+    // }
     const body = request.body ? await request.arrayBuffer() : null;
     let middlewareRequest = new Request(request.url, {
       method: request.method,
