@@ -11,6 +11,7 @@ const REDIRECTIONIO_TIMEOUT = process.env.REDIRECTIONIO_TIMEOUT ? parseInt(proce
 export const createRedirectionIoMiddleware = config => {
   return async (request, context) => {
     // Avoid infinite loop
+    console.log(request, context);
     if (
       request.headers.get('x-redirectionio-middleware') === 'true' ||
       request.headers.get('User-Agent') === 'Vercel Edge Functions'
@@ -75,6 +76,7 @@ async function handler(request, context, fetchResponse) {
     return fetchResponse(request, true);
   });
   const url = new URL(request.url);
+  console.log(url);
   const location = response.headers.get('Location');
   if (location && location.startsWith('/')) {
     response.headers.set('Location', url.origin + location);
@@ -142,7 +144,9 @@ function splitSetCookies(cookiesString) {
   return cookiesStrings;
 }
 function createRedirectionIORequest(request, ip) {
-  const urlObject = new URL(request.url);
+  const urlObject = new URL(
+    'https://arcxp-sandbox-bakeryandsnacks.wrbm.com/Article/2021/10/07/Bamboo-VINAGER-Solution-Marketing-campaign-Params'
+  );
   const redirectionioRequest = new redirectionio.Request(
     urlObject.pathname + urlObject.search,
     urlObject.host,
